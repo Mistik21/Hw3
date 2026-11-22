@@ -1,0 +1,21 @@
+for port in {8080..8090}; do
+    python3 -m http.server "$port" &
+done
+\\создаём промежуток портов
+
+
+sudo .venv_wsl/bin/python main.py 127.0.0.1 tcp/8080
+sudo .venv_wsl/bin/python main.py 127.0.0.1 tcp/8078-8088
+sudo .venv_wsl/bin/python main.py 127.0.0.1 tcp/8080,8082,8085
+sudo .venv_wsl/bin/python main.py -v 127.0.0.1 tcp/8080-8082
+sudo .venv_wsl/bin/python main.py -j 5 127.0.0.1 tcp/8070-8090
+sudo .venv_wsl/bin/python main.py 127.0.0.1 udp/9999
+sudo .venv_wsl/bin/python main.py -j 10 127.0.0.1 tcp/8080-8085 udp/9999
+sudo .venv_wsl/bin/python main.py --timeout 0.5 127.0.0.1 tcp/8070-8090
+sudo .venv_wsl/bin/python main.py -j 5 -v 127.0.0.1 tcp/8080-8082,8085 udp/9999
+
+\\чтобы убить все сервера
+pkill -f "python3 -m http.server"
+
+\\чтобы запустить udp сервер
+python3 udp_server.py
