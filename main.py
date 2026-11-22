@@ -1,6 +1,6 @@
 import argparse
 import time
-from scapy.all import IP, TCP, sr1, send, UDP, ICMP
+from scapy.all import IP, TCP, sr1, send, UDP, ICMP, DNS, DNSQR
 from concurrent.futures import ThreadPoolExecutor
 
 parser = argparse.ArgumentParser()
@@ -37,7 +37,7 @@ def tcp_scan(ip,port,timeout,is_time):
 
 
 def udp_scan(ip, port, timeout):
-    packet = IP(dst=ip) / UDP(dport=port)
+    packet = IP(dst=ip) / UDP(dport=port) / DNS(rd=1,qd=DNSQR(qname="example.com"))
 
     response = sr1(packet, timeout=timeout, verbose=0)
 
